@@ -22,70 +22,70 @@ module vga #(
     case(TYPE)
       2'b00  : begin
                   HD = 640;
-                  HF = 48;
-                  HA = 16;
-                  HB = 96;
+                  HF = 16;
+                  HA = 96;
+                  HB = 48;
                   HT = 800; //
                   VD = 480;
-                  VF = 33;
-                  VA = 10;
-                  VB = 2;
+                  VF = 10;
+                  VA = 2;
+                  VB = 33;
                   VT = 525;
                   hsync_default = 1'b1;
                   vsync_default = 1'b1;
              end
       2'b01  : begin
                   HD = 800;
-                  HF = 88;
-                  HA = 40;
-                  HB = 128;
+                  HF = 40;
+                  HA = 128;
+                  HB = 88;
                   HT = 1056;
                   VD = 600;
-                  VF = 27;
-                  VA = 1;
-                  VB = 4;
-                  VT = 632;
+                  VF = 1;
+                  VA = 4;
+                  VB = 23;
+                  VT = 628;
                   hsync_default = 1'b0;
                   vsync_default = 1'b0;
              end
       2'b10  : begin
                   HD = 1024;
-                  HF = 160;
-                  HA = 24;
-                  HB = 136;
+                  HF = 24;
+                  HA = 136;
+                  HB = 160;
                   HT = 1344;
                   VD = 768;
-                  VF = 35;
-                  VA = 3;
-                  VB = 6;
-                  VT = 812;
+                  VF = 3;
+                  VA = 6;
+                  VB = 29;
+                  VT = 806;
                   hsync_default = 1'b1;
                   vsync_default = 1'b1;
              end
       2'b11  : begin
                   HD = 1280;
-                  HF = 248;
-                  HA = 48;
-                  HB = 112;
+                  HF = 48;
+                  HA = 112;
+                  HB = 248;
                   HT = 1688;
                   VD = 1024;
-                  VF = 41;
-                  VA = 1;
-                  VB = 3;
+                  VF = 1;
+                  VA = 3;
+                  VB = 38;
                   VT = 1066;
                   hsync_default = 1'b0;
                   vsync_default = 1'b0;
              end
       default: begin
                   HD = 640;
-                  HF = 48;
-                  HA = 16;
-                  HB = 96;
+                  HF = 16;
+                  HA = 96;
+                  HB = 48;
                   HT = 800;
                   VD = 480;
-                  VF = 33;
-                  VA = 10;
-                  VB = 2;
+                  VF = 10;
+                  VA = 2;
+                  VB = 33;
                   VT = 525;      
                   hsync_default = 1'b1;
                   vsync_default = 1'b1;       

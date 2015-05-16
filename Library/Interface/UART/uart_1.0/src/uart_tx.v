@@ -52,11 +52,11 @@ module uart_tx #(parameter DATA_WIDTH = 8)(
         data_next = data_reg;
         case(state)
             idle:begin
+                tx_done_next = 0;
                 if(tx_start)begin
                     data_next= din;
                     s_next = 0;
-                    state_next = start;  
-                    tx_done_next = 0;                  
+                    state_next = start;                    
                 end
             end
             

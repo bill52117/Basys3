@@ -47,10 +47,10 @@ module uart_rx #(parameter DATA_WIDTH = 8)(
         rx_done_next = rx_done;
         case(state)
             idle:begin
+                rx_done_next = 0;  
                 if(~rx)begin
                     state_next = start;
-                    s_next = 0;  
-                    rx_done_next = 0;                
+                    s_next = 0;                
                 end
             end
             
