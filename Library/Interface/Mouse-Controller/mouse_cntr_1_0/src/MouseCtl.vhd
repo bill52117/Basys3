@@ -213,6 +213,9 @@ architecture Behavioral of MouseCtl is
 -- Ps2 Interface component declaration
 ------------------------------------------------------------------------
 COMPONENT Ps2Interface
+generic(
+   SYSCLK_FREQUENCY_HZ : integer := 100000000
+);
 PORT(
    ps2_clk        : inout std_logic;
    ps2_data       : inout std_logic;
@@ -370,6 +373,10 @@ signal timeout            : STD_LOGIC := '0';
 begin
 
    Inst_Ps2Interface: Ps2Interface
+   GENERIC MAP
+   (
+      SYSCLK_FREQUENCY_HZ => SYSCLK_FREQUENCY_HZ
+   )
    PORT MAP
    (
       ps2_clk        => ps2_clk,
