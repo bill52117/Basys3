@@ -142,6 +142,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
+USE ieee.numeric_std.ALL;
 
 -- simulation library
 library UNISIM;
@@ -192,12 +193,12 @@ architecture Behavioral of Ps2Interface is
 -- upper limit for 100us delay counter.
 -- 10000 * 10ns = 100us
 constant CLOCK_CNT_100US : integer := ((100*1000) / (1000000000 / SYSCLK_FREQUENCY_HZ));
-constant DELAY_100US : std_logic_vector(13 downto 0):= conv_std_logic_vector(CLOCK_CNT_100US, 14); --"10011100010000";
+constant DELAY_100US : std_logic_vector(13 downto 0):= STD_LOGIC_VECTOR(TO_UNSIGNED(CLOCK_CNT_100US, 14)); --conv_std_logic_vector(CLOCK_CNT_100US, 14); --"10011100010000";
                                                  -- 10000 clock periods
 -- upper limit for 20us delay counter.
 -- 2000 * 10ns = 20us
 constant CLOCK_CNT_20US : integer := ((20*1000) / (1000000000 / SYSCLK_FREQUENCY_HZ));
-constant DELAY_20US  : std_logic_vector(10 downto 0) := conv_std_logic_vector(CLOCK_CNT_20US, 11);
+constant DELAY_20US  : std_logic_vector(10 downto 0) := STD_LOGIC_VECTOR(TO_UNSIGNED(CLOCK_CNT_20US, 11)); --conv_std_logic_vector(CLOCK_CNT_20US, 11);
                                                   -- 2000 clock periods
 -- upper limit for 63clk delay counter.
 constant DELAY_63CLK : std_logic_vector(6 downto 0)  := "1111111";

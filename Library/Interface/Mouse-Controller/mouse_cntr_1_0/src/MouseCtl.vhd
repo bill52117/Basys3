@@ -169,6 +169,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
+USE ieee.numeric_std.ALL;
 
 -- simulation library
 library UNISIM;
@@ -258,10 +259,10 @@ constant SAMPLE_RATE      : std_logic_vector(7 downto 0) := x"28";
                                                   -- (40 samples/s)
 
 -- default maximum value for the horizontal mouse position
-constant DEFAULT_MAX_X : std_logic_vector(11 downto 0) := conv_std_logic_vector(HORIZONTAL_WIDTH-1, 12);     --x"4FF";
+constant DEFAULT_MAX_X : std_logic_vector(11 downto 0) := STD_LOGIC_VECTOR(TO_UNSIGNED(HORIZONTAL_WIDTH-1, 12)); --conv_std_logic_vector(HORIZONTAL_WIDTH-1, 12);     --x"4FF";
                                                       -- 1279
 -- default maximum value for the vertical mouse position
-constant DEFAULT_MAX_Y : std_logic_vector(11 downto 0) := conv_std_logic_vector(VERTICAL_WIDTH-1, 12);    --x"3FF";
+constant DEFAULT_MAX_Y : std_logic_vector(11 downto 0) := STD_LOGIC_VECTOR(TO_UNSIGNED(VERTICAL_WIDTH-1, 12)); --conv_std_logic_vector(VERTICAL_WIDTH-1, 12);    --x"3FF";
                                                       -- 1023
 
 -- Mouse check tick constants

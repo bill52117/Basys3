@@ -4,9 +4,8 @@ proc init_gui { IPINST } {
   #Adding Page
   set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
   ipgui::add_param $IPINST -name "DATA_WIDTH" -parent ${Page_0}
-  ipgui::add_param $IPINST -name "DVSR" -parent ${Page_0}
-  set Status_signals_not_required [ipgui::add_param $IPINST -name "Status_signals_not_required" -parent ${Page_0}]
-  set_property tooltip {Status signals not required} ${Status_signals_not_required}
+  ipgui::add_param $IPINST -name "DVSR" -parent ${Page_0} -widget comboBox
+  ipgui::add_param $IPINST -name "Status_signals_not_required" -parent ${Page_0}
   ipgui::add_param $IPINST -name "NO_RESET" -parent ${Page_0}
 
 
