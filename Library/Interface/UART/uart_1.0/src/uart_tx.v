@@ -10,7 +10,8 @@ module uart_tx #(parameter DATA_WIDTH = 8)(
     input wire clk,reset,s_tick,tx_start,
     input wire [DATA_WIDTH-1:0]din,
     output reg tx,
-    output reg tx_done
+    output reg tx_done,
+    output tx_busy
     );
     
     localparam [1:0]
@@ -24,6 +25,8 @@ module uart_tx #(parameter DATA_WIDTH = 8)(
     reg tx_next,tx_done_next;
     reg [3:0]s,s_next;
     reg [3:0]n,n_next;   //the max number of bits is 16
+    
+    assign tx_busy = (state == idle)?1'b0:1'b1;
     
     always@(posedge clk)
     if(reset)begin

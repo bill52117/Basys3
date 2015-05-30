@@ -8,7 +8,8 @@ module uart_rx #(parameter DATA_WIDTH = 8)(
     input wire clk,reset,
     input wire rx,s_tick,
     output wire [DATA_WIDTH-1:0]dout,
-    output reg rx_done
+    output reg rx_done,
+    output rx_busy
     );
         
     localparam [1:0]
@@ -22,6 +23,8 @@ module uart_rx #(parameter DATA_WIDTH = 8)(
     reg [3:0]n,n_next;    
     reg [DATA_WIDTH-1:0]rx_reg,rx_next;
     reg rx_done_next;
+    
+    assign rx_busy = (state == idle)?1'b0:1'b1;
     
     always@(posedge clk)
     if(reset)begin

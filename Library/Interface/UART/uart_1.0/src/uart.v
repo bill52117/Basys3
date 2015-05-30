@@ -7,9 +7,10 @@
 module uart #(parameter DVSR = 651,DATA_WIDTH = 8) (
     input wire clk,reset,
     input wire rx,send,
-    input wire [DATA_WIDTH-1:0]data_in,
-    output wire [DATA_WIDTH-1:0]data_out,
+    input wire [DATA_WIDTH-1:0]tx_data_in,
+    output wire [DATA_WIDTH-1:0]rx_data_out,
     output wire rx_done,tx_done,
+    output wire rx_busy,tx_busy,
     output wire tx
     );
     
@@ -27,18 +28,20 @@ module uart #(parameter DVSR = 651,DATA_WIDTH = 8) (
         .reset(reset),
         .s_tick(s_tick),
         .rx(rx),
-        .dout(data_out),
-        .rx_done(rx_done)
+        .dout(rx_data_out),
+        .rx_done(rx_done),
+        .rx_busy(rx_busy)
     );
         
     uart_tx #(.DATA_WIDTH(DATA_WIDTH)) TX(
         .clk(clk),
         .reset(reset),
         .s_tick(s_tick),
-        .din(data_in),
+        .din(tx_data_in),
         .tx_start(send),
         .tx(tx),
-        .tx_done(tx_done)
+        .tx_done(tx_done),
+        .tx_busy(tx_busy)
     );
     
 endmodule
