@@ -281,15 +281,31 @@ module MouseCtl #(
   };
   parameter COMMAND_COUNTER_WIDTH = clogb2(COMMAND_LENGHT-1);
   
+  
+  // Periodic checking counter, reset and tick signal, and
+  // Timeout checking counter, reset and timeout indication signal
+  // The periodic checking counter acts as a watchdog, periodically
+  // reading the Mouse ID, therefore checking if the mouse is present
+  // If there is no answer, after the timeout period passed, then the
+  // state machine is reinitialized
   reg [COUNTER_WIDTH-1:0] counter;
   wire periodic_check_tick, timeout_tick;
   reg counter_reset, counter_start;
   
+  // program counter for mouse initialization
   reg [COMMAND_COUNTER_WIDTH-1:0] pc;
   reg pc_reset, pc_count;
   
   reg [11:0] ymax, xmax;
   
+  
+  
+  // horizontal and veritcal mouse position
+  // origin of axes is upper-left corner
+  // the origin of axes the mouse uses is the lower-left corner
+  // The y-axis is inverted, by making negative the y movement received
+  // from the mouse (if it was positive it becomes negative
+  // and vice versa)
   reg [11:0] xpos_inter, xpos_next;
   reg [11:0] ypos_inter, ypos_next;
   
@@ -384,6 +400,9 @@ module MouseCtl #(
   end
   
   //************* x, y max register ****************//
+  
+  // sets the maximum value of the x movement register, stored in xmax
+  // when setmax_x is active, max value should be on value input pin
   always @ (posedge clk, posedge rst)begin
     if(rst)
 	  xmax <= HORIZONTAL_WIDTH;
@@ -392,7 +411,9 @@ module MouseCtl #(
 	else
 	  xmax <= xmax;
   end
-	  
+	 
+  // sets the maximum value of the y movement register, stored in ymax
+  // when setmax_y is active, max value should be on value input pin	 
   always @ (posedge clk, posedge rst)begin
     if(rst)
 	  ymax <= VERTICAL_WIDTH;
@@ -412,6 +433,7 @@ module MouseCtl #(
 		  xpos_inter = xpos + {4'b1111, x_inc};
 		end
 		
+		// xpos_inter underflow
 		if(xpos_inter[11] == 1'b1)begin
 		  xpos_next = 0;
 		end else begin
@@ -439,6 +461,7 @@ module MouseCtl #(
   always @ * begin
     if(state == READ_BYTE_3 && rx_valid == 1'b1)begin
 	  if(y_sign == 1'b1)begin
+	    //Note: axes origin is upper-left corner
 		if(y_overflow == 1'b1)begin
 		  ypos_inter = ypos + 12'd256;
 		end else begin
